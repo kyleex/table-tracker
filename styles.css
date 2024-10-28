@@ -8,6 +8,8 @@ body {
     align-items: center;
     background: linear-gradient(135deg, #cfd9df, #e2ebf0);
     color: #333;
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 /* Titre principal */
@@ -25,12 +27,16 @@ h1 {
 
 /* Container global pour les tables */
 #tables-container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Utiliser une grille */
+    gap: 20px; /* Espace entre les cartes */
     width: 100%;
     max-width: 1200px;
-    gap: 40px;
-    padding: 0 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 /* Section des tables prioritaires */
@@ -39,6 +45,7 @@ h1 {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 /* Titre de la section prioritaire */
@@ -51,23 +58,30 @@ h1 {
 
 /* Grille pour l'affichage des tables */
 .table-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Colonnes dynamiques */
+    gap: 20px; /* Espace entre les cartes */
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    margin: 0 auto; /* Centrer le conteneur de la grille */
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 /* Style des cartes de table */
 .table {
-    width: 300px;
-    padding: 30px;
-    border-radius: 20px;
+    width: 100%;
+    max-width: 100%; /* Assurer que la carte ne dépasse pas */
+    padding: 20px;
+    border-radius: 15px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 -3px 5px rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, margin 0.3s ease;
+    margin-top: -10px;
+    z-index: 1;
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 .table.inactive {
@@ -77,8 +91,10 @@ h1 {
 }
 
 .table:hover {
-    transform: translateY(-10px);
+    transform: translateY(-15px) scale(1.05);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    margin-top: -20px;
+    z-index: 10;
 }
 
 .table h2 {
@@ -105,6 +121,7 @@ button {
     font-weight: 500;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 button:hover {
@@ -125,6 +142,7 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.6); /* Assombrir le fond */
     padding-top: 60px;
     animation: fadeIn 0.3s ease-out; /* Animation d'apparition */
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 .modal-content {
@@ -138,14 +156,13 @@ button:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     animation: slideIn 0.3s ease-out; /* Animation de glissement */
     background: linear-gradient(135deg, #f0f0f0, #ffffff); /* Fond en dégradé */
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
-
 
 @keyframes slideIn {
     from { transform: translateY(-20px); }
@@ -174,6 +191,7 @@ input[type="text"] {
     border-radius: 8px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: border-color 0.2s ease;
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 input[type="text"]:focus {
@@ -193,6 +211,7 @@ button {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: inline-block; /* Assurez-vous que les boutons sont en ligne */
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 button:hover {
@@ -205,6 +224,7 @@ button:hover {
     display: inline-block;
     width: 100px; /* Augmenter la largeur pour le texte */
     height: 34px;
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 .switch-input {
@@ -229,12 +249,13 @@ button:hover {
     padding: 0 10px; /* Ajouter de l'espace pour le texte */
     font-size: 14px;
     color: white;
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
 }
 
 .switch-label:before {
     position: absolute;
     content: "Simple";
-    left: 10px;
+    left: 2.5rem;
     color: #fff;
     transition: 0.4s;
 }
@@ -242,7 +263,6 @@ button:hover {
 .switch-input:checked + .switch-label:before {
     content: "Double";
     left: auto;
-    right: 10px;
 }
 
 .switch-label:after {

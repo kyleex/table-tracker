@@ -92,6 +92,15 @@ function closeModal() {
     modal.style.display = 'none'; // Masquer le modal
 }
 
+// Fonction pour réinitialiser le modal
+function resetModal() {
+    document.getElementById('player1').value = '';
+    document.getElementById('player2').value = '';
+    document.getElementById('table-name').value = '';
+    document.getElementById('pool-name').value = '';
+    document.getElementById('match-type').checked = false;
+}
+
 // Fonction pour démarrer le timer avec les nouvelles options
 function startTimerWithPlayers() {
     const modal = document.getElementById('player-modal');
@@ -180,12 +189,18 @@ function toggleTimer(tableId) {
     }
 }
 
+
+// Fonction pour arrêter le timer
 function stopTimer(tableId) {
     const table = tables.find(t => t.id === tableId);
     if (table.timer) {
         clearInterval(table.timer);
         table.timer = null;
     }
+    
+    // Réinitialiser les informations de la table
+    table.players = [];
+    table.startTime = null;
     
     const timerElement = document.getElementById(`timer-${tableId}`);
     if (timerElement) {
@@ -210,18 +225,21 @@ function stopTimer(tableId) {
     
     const playersElement = document.getElementById(`players-${tableId}`);
     if (playersElement) {
-        playersElement.textContent = `Joueurs: ${table.players.length ? table.players.join(', ') : 'Aucun'}`;
+        playersElement.textContent = `Joueurs: Aucun`;
     }
     
     const startTimeElement = document.getElementById(`start-time-${tableId}`);
     if (startTimeElement) {
-        startTimeElement.textContent = `Début: ${table.startTime ? new Date(table.startTime).toLocaleTimeString() : 'N/A'}`;
+        startTimeElement.textContent = `Début: N/A`;
     }
     
     const startButton = document.getElementById(`start-${table.id}`);
     if (startButton) {
         startButton.style.display = 'inline-block';
     }
+
+    // Réinitialiser le modal après l'arrêt du timer
+    resetModal();
 }
 
 // Fonction pour mettre à jour les joueurs d'une table
