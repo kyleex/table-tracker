@@ -52,18 +52,19 @@ function renderTables() {
                 <div id="players-${table.id}">Joueurs: ${table.players.length ? table.players.join(', ') : 'Aucun'}</div>
                 <div id="start-time-${table.id}">Début: ${table.startTime ? new Date(table.startTime).toLocaleTimeString() : 'N/A'}</div>
                 <div id="timer-${table.id}" class="timer">Inactif depuis ${elapsedTime} min</div>
-                <button onclick="showPlayerModal(${table.id})">Démarrer le Timer</button>
+                <button onclick="showPlayerModal(${table.id})" id="start-${table.id}" style="display:${table.timer ? 'inline-block' : 'none'};">Démarrer le Timer</button>
             `;
             priorityGrid.appendChild(tableDiv);
         } else {
             // Pour les tables actives ou inactives depuis moins de 30 minutes
             tableDiv.classList.add(table.timer ? 'active' : 'inactive');
+            tableDiv.id = `table-${table.id}`;
             tableDiv.innerHTML = `
                 <h2>Table ${table.id}</h2>
                 <div id="players-${table.id}">Joueurs: ${table.players.length ? table.players.join(', ') : 'Aucun'}</div>
                 <div id="start-time-${table.id}">Début: ${table.startTime ? new Date(table.startTime).toLocaleTimeString() : 'N/A'}</div>
                 <div id="timer-${table.id}" class="timer">Temps: ${elapsedTime} min</div>
-                <button onclick="showPlayerModal(${table.id})" style="display:${table.timer ? 'none' : 'inline-block'};">Démarrer le Timer</button>
+                <button onclick="showPlayerModal(${table.id})" id="start-${table.id}" style="display:${table.timer ? 'none' : 'inline-block'};">Démarrer le Timer</button>
                 <button id="play-pause-${table.id}" onclick="toggleTimer(${table.id})" style="display:${table.timer ? 'inline-block' : 'none'};">Pause</button>
                 <button id="stop-${table.id}" onclick="stopTimer(${table.id})" style="display:${table.timer ? 'inline-block' : 'none'};">Arrêter</button>
             `;
@@ -179,18 +180,48 @@ function toggleTimer(tableId) {
     }
 }
 
-// Fonction pour arrêter le timer
 function stopTimer(tableId) {
     const table = tables.find(t => t.id === tableId);
     if (table.timer) {
         clearInterval(table.timer);
         table.timer = null;
     }
-    document.getElementById(`timer-${tableId}`).textContent = `Temps: 0 sec`;
-    document.getElementById(`table-${tableId}`).classList.remove('active');
-    document.getElementById(`table-${tableId}`).classList.add('inactive');
-    document.getElementById(`play-pause-${tableId}`).style.display = 'none';
-    document.getElementById(`stop-${tableId}`).style.display = 'none';
+    
+    const timerElement = document.getElementById(`timer-${tableId}`);
+    if (timerElement) {
+        timerElement.textContent = `Temps: 0 sec`;
+    }
+    
+    const tableElement = document.getElementById(`table-${tableId}`);
+    if (tableElement) {
+        tableElement.classList.remove('active');
+        tableElement.classList.add('inactive');
+    }
+    
+    const playPauseButton = document.getElementById(`play-pause-${tableId}`);
+    if (playPauseButton) {
+        playPauseButton.style.display = 'none';
+    }
+    
+    const stopButton = document.getElementById(`stop-${tableId}`);
+    if (stopButton) {
+        stopButton.style.display = 'none';
+    }
+    
+    const playersElement = document.getElementById(`players-${tableId}`);
+    if (playersElement) {
+        playersElement.textContent = `Joueurs: ${table.players.length ? table.players.join(', ') : 'Aucun'}`;
+    }
+    
+    const startTimeElement = document.getElementById(`start-time-${tableId}`);
+    if (startTimeElement) {
+        startTimeElement.textContent = `Début: ${table.startTime ? new Date(table.startTime).toLocaleTimeString() : 'N/A'}`;
+    }
+    
+    const startButton = document.getElementById(`start-${table.id}`);
+    if (startButton) {
+        startButton.style.display = 'inline-block';
+    }
 }
 
 // Fonction pour mettre à jour les joueurs d'une table
