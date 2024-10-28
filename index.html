@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surveillance des Tables de Tennis de Table</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Surveillance des Tables de Tennis de Table</h1>
+    <div id="tables-container">
+        <!-- Les tables seront générées dynamiquement ici -->
+    </div>
+    <div id="player-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Configurer le Match</h3>
+            <input type="text" id="table-name" placeholder="Tableau (Facultatif)">
+            <input type="text" id="pool-name" placeholder="Poule (Facultatif)">
+            <div class="switch">
+                <input type="checkbox" id="match-type" class="switch-input">
+                <label for="match-type" class="switch-label">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+            <input type="text" id="player1" placeholder="Joueur 1">
+            <input type="text" id="player2" placeholder="Joueur 2">
+            <button onclick="startTimerWithPlayers()">Commencer</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
