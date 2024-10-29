@@ -78,7 +78,7 @@ h1 {
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 -3px 5px rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, margin 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, margin 0.2s ease;
     margin-top: -10px;
     z-index: 1;
     box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
@@ -283,4 +283,8 @@ button:hover {
 
 .switch-input:checked + .switch-label {
     background-color: #ff7e5f;
+}
+
+.hidden {
+    display: none;
 }

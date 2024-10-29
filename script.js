@@ -75,10 +75,10 @@ function renderTables() {
     const normalGrid = document.createElement('div');
     normalGrid.classList.add('table-grid');
 
-    // Génération des tables
     tables.forEach(table => {
         const tableDiv = document.createElement('div');
         tableDiv.className = 'table';
+        tableDiv.id = `table-${table.id}`;
 
         // Calcul du temps écoulé en minutes si le timer est arrêté
         const elapsedTime = table.startTime ? Math.floor((Date.now() - table.startTime) / 60000) : 0;
@@ -97,7 +97,6 @@ function renderTables() {
         } else {
             // Pour les tables actives ou inactives depuis moins de 30 minutes
             tableDiv.classList.add(table.timer ? 'active' : 'inactive');
-            tableDiv.id = `table-${table.id}`;
             tableDiv.innerHTML = `
                 <h2>Table ${table.id}</h2>
                 <div id="players-${table.id}">Joueurs: ${table.players.length ? table.players.join(', ') : 'Aucun'}</div>
@@ -121,14 +120,48 @@ function renderTables() {
 // Fonction pour afficher la fenêtre modale de saisie des joueurs
 function showPlayerModal(tableId) {
     const modal = document.getElementById('player-modal');
-    modal.style.display = 'block'; // Afficher le modal
-    modal.dataset.tableId = tableId; // Stocker l'ID de la table dans le modal
+    modal.style.display = 'block';
+    modal.dataset.tableId = tableId;
+
+    // Masquer la carte de la table en ajoutant une classe
+    const tableElement = document.getElementById(`table-${tableId}`);
+    if (tableElement) {
+        tableElement.classList.add('hidden');
+    }
+
+    // Créer dynamiquement des champs de saisie avec des `id` uniques
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Configurer le Match pour la Table ${tableId}</h3>
+            <input type="text" id="table-name-${tableId}" placeholder="Tableau (Facultatif)">
+            <input type="text" id="pool-name-${tableId}" placeholder="Poule (Facultatif)">
+            <div class="switch">
+                <input type="checkbox" id="match-type-${tableId}" class="switch-input">
+                <label for="match-type-${tableId}" class="switch-label">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+            <input type="text" id="player1-${tableId}" placeholder="Joueur 1">
+            <input type="text" id="player2-${tableId}" placeholder="Joueur 2">
+            <button onclick="startTimerWithPlayers()">Commencer</button>
+        </div>
+    `;
 }
 
+// Fonction pour fermer le modal
 // Fonction pour fermer le modal
 function closeModal() {
     const modal = document.getElementById('player-modal');
     modal.style.display = 'none'; // Masquer le modal
+    modal.innerHTML = ''; // Vider le contenu du modal pour éviter la duplication des `id`
+
+    // Réafficher la carte de la table en retirant la classe
+    const tableId = parseInt(modal.dataset.tableId);
+    const tableElement = document.getElementById(`table-${tableId}`);
+    if (tableElement) {
+        tableElement.classList.remove('hidden');
+    }
 }
 
 // Fonction pour réinitialiser le modal
@@ -144,11 +177,11 @@ function resetModal() {
 function startTimerWithPlayers() {
     const modal = document.getElementById('player-modal');
     const tableId = parseInt(modal.dataset.tableId);
-    const player1 = document.getElementById('player1').value.trim();
-    const player2 = document.getElementById('player2').value.trim();
-    const matchType = document.getElementById('match-type').checked ? 'double' : 'simple';
-    const tableName = document.getElementById('table-name').value.trim();
-    const poolName = document.getElementById('pool-name').value.trim();
+    const player1 = document.getElementById(`player1-${tableId}`).value.trim();
+    const player2 = document.getElementById(`player2-${tableId}`).value.trim();
+    const matchType = document.getElementById(`match-type-${tableId}`).checked ? 'double' : 'simple';
+    const tableName = document.getElementById(`table-name-${tableId}`).value.trim();
+    const poolName = document.getElementById(`pool-name-${tableId}`).value.trim();
 
     if (!player1 || !player2) {
         alert("Veuillez entrer les noms des joueurs.");
@@ -158,7 +191,6 @@ function startTimerWithPlayers() {
     const players = matchType === 'double' ? [player1, player2, 'Joueur 3', 'Joueur 4'] : [player1, player2];
     updatePlayers(tableId, players);
 
-    // Vérifiez que l'élément existe avant de le manipuler
     const playersElement = document.getElementById(`players-${tableId}`);
     if (playersElement) {
         playersElement.textContent = `Joueurs: ${players.join(', ')}`;
@@ -167,13 +199,11 @@ function startTimerWithPlayers() {
     startTimer(tableId);
     closeModal();
 
-    // Masquer le bouton "Démarrer le Timer" après le démarrage
     const startButton = document.querySelector(`#table-${tableId} button`);
     if (startButton) {
         startButton.style.display = 'none';
     }
 
-    // Afficher les boutons de contrôle après le démarrage
     const playPauseButton = document.getElementById(`play-pause-${tableId}`);
     if (playPauseButton) {
         playPauseButton.style.display = 'inline-block';
