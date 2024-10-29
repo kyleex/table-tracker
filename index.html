@@ -8,6 +8,18 @@
 </head>
 <body>
     <h1>Table tracker</h1>
+    <div id="config-modal" class="modal" style="display: block;">
+        <div class="modal-content">
+            <h3>Configuration Initiale</h3>
+            <div id="table-count-container" style="display: none;">
+                <label for="table-count">Nombre de tables à surveiller :</label>
+                <input type="number" id="table-count" min="1" value="">
+                <button onclick="createConfig()">Confirmer</button>
+            </div>
+            <!-- <button id="open-config-button" onclick="openConfig()">Ouvrir un fichier de configuration</button> -->
+            <button onclick="prepareCreateConfig()" id="create-config-file">Créer un nouveau fichier de configuration</button>
+        </div>
+    </div>
     <div id="tables-container">
         <!-- Les tables seront générées dynamiquement ici -->
     </div>

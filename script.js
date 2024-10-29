@@ -1,5 +1,5 @@
 // Définir le nombre de tables
-let numberOfTables = 4;
+let numberOfTables = 0;
 let tables = [];
 
 // Initialiser les tables
@@ -15,6 +15,45 @@ function initializeTables() {
     }
     renderTables();
 }
+
+// Variable pour stocker l'état du fichier de configuration
+let configFileLoaded = false;
+
+// Fonction pour vérifier si un fichier de configuration est chargé
+function checkConfigFile() {
+    // Logique pour vérifier l'existence d'un fichier de configuration
+    if (!configFileLoaded) {
+        document.getElementById('config-modal').style.display = 'block';
+    }
+}
+
+// // Fonction pour ouvrir un fichier de configuration
+// function openConfig() {
+//     // Logique pour ouvrir un fichier de configuration
+//     console.log("Ouverture du fichier de configuration...");
+//     configFileLoaded = true; // Mettre à jour l'état
+//     document.getElementById('config-modal').style.display = 'none';
+//     numberOfTables = parseInt(document.getElementById('table-count').value) || 4; // Utiliser la valeur saisie
+//     initializeTables(); // Afficher les tables après ouverture
+// }
+
+// Fonction pour préparer la création d'un nouveau fichier de configuration
+function prepareCreateConfig() {
+    document.getElementById('table-count-container').style.display = 'block';
+    // document.getElementById('open-config-button').style.display = 'none';
+    document.getElementById('create-config-file').style.display = 'none'; // Masquer le bouton après le clic
+}
+
+// Fonction pour créer un nouveau fichier de configuration
+function createConfig() {
+    console.log("Création d'un nouveau fichier de configuration...");
+    configFileLoaded = true; // Mettre à jour l'état
+    document.getElementById('config-modal').style.display = 'none';
+    document.getElementById('create-config-file').style.display = 'none'; // Masquer le bouton
+    numberOfTables = parseInt(document.getElementById('table-count').value) || 0; // Utiliser la valeur saisie
+    initializeTables(); // Afficher les tables après création
+}
+
 
 // Générer dynamiquement les éléments HTML pour chaque table
 function renderTables() {
@@ -292,4 +331,5 @@ function changeNumberOfTables() {
 }
 
 // Initialiser l'application
-initializeTables();
+checkConfigFile();
+
