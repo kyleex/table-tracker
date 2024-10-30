@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Table tracker</h1>
-    <div id="config-modal" class="modal" style="display: block;">
+    <h1>Table Tracker</h1>
+    <div id="config-modal" class="modal">
         <div class="modal-content">
             <h3>Configuration Initiale</h3>
             <div id="table-count-container" style="display: none;">
@@ -16,14 +16,13 @@
                 <input type="number" id="table-count" min="1" value="">
                 <button onclick="createConfig()">Confirmer</button>
             </div>
-            <!-- <button id="open-config-button" onclick="openConfig()">Ouvrir un fichier de configuration</button> -->
             <button onclick="prepareCreateConfig()" id="create-config-file">Créer un nouveau fichier de configuration</button>
         </div>
     </div>
     <div id="tables-container">
-        <!-- Les tables seront générées dynamiquement ici -->
+        <!-- Les cartes de match seront générées dynamiquement ici -->
     </div>
-    <div id="player-modal" class="modal" style="display: none;">
+    <div id="player-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Configurer le Match</h3>

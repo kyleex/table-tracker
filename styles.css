@@ -1,4 +1,11 @@
-/* Général - Inchangé */
+/* Réinitialisation des styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style général du corps */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -6,10 +13,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(135deg, #cfd9df, #e2ebf0);
+    background: linear-gradient(135deg, #e3e8ec, #f7f9fc);
     color: #333;
-    overflow-x: hidden; /* Empêche le défilement horizontal */
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 /* Titre principal */
@@ -22,116 +29,129 @@ h1 {
     background: linear-gradient(90deg, #ff7e5f, #feb47b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Container global pour les tables */
 #tables-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Utiliser une grille */
-    gap: 20px; /* Espace entre les cartes */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    row-gap: 40px;
     width: 100%;
     max-width: 1200px;
     max-height: 70vh;
     overflow-y: auto;
     padding: 20px;
     border-radius: 8px;
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+    box-sizing: border-box;
 }
 
-/* Section des tables prioritaires */
-.priority-section {
-    background: rgba(255, 112, 67, 0.1);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
-}
-
-/* Titre de la section prioritaire */
-.priority-section h2 {
-    color: #ff7043;
-    font-weight: 600;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
-
-/* Grille pour l'affichage des tables */
-.table-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Colonnes dynamiques */
-    gap: 20px; /* Espace entre les cartes */
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px;
-    margin: 0 auto; /* Centrer le conteneur de la grille */
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
-}
-
-/* Style des cartes de table */
-.table {
-    width: 100%;
-    max-width: 100%; /* Assurer que la carte ne dépasse pas */
-    padding: 20px;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 -3px 5px rgba(255, 255, 255, 0.2);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, margin 0.2s ease;
-    margin-top: -10px;
-    z-index: 1;
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
-}
-
-.table.inactive {
-    background: rgba(255, 112, 67, 0.1);
-    border: 1px solid #ff7043;
-    color: #ff7043;
-}
-
-.table:hover {
-    transform: translateY(-15px) scale(1.05);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    margin-top: -20px;
-    z-index: 10;
-}
-
-.table h2 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
-    font-weight: 600;
-    color: #222;
-}
-
-.timer {
-    font-size: 1.2em;
-    color: #ff7e5f;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-button {
-    padding: 12px 20px;
-    background: linear-gradient(90deg, #ff7e5f, #feb47b);
-    color: #fff;
-    border: none;
+/* Style des cartes de match */
+.match-card {
+    width: 90%;
+    max-width: 380px;
+    background: #f9f9f9;
     border-radius: 12px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+    overflow: visible;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
 }
 
-button:hover {
+.match-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Mini Square Badge - Top Right */
+.table-badge {
+    position: absolute;
+    top: -20px;
+    left: 25%;
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+    color: white;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 8px;
+    width: 50%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Informations sur la table */
+.table-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: #e0e0e0;
+    margin-top: 10px;
+}
+
+
+.category {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.pool {
+    font-size: 0.85em;
+    color: #a3a3a3;
+}
+
+/* Section des joueurs */
+.players h2 {
+    font-size: 1.2em;
+    color: #333333;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.elapsed-time {
+    font-size: 0.9em;
+    color: #ff8a65;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.players ul {
+    list-style: none;
+}
+
+.players ul li {
+    color: #555555; /* Gris moyen pour une bonne lisibilité */
+    font-size: 0.9em; /* Taille de police légèrement réduite */
+    font-weight: 400; /* Poids léger pour un aspect élégant */
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Ligne de séparation subtile */
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1); /* Ombre douce pour lisibilité */
+}
+
+.players ul li:last-child {
+    border-bottom: none;
+}
+
+/* Heure d'annonce */
+.announcement-time {
+    text-align: right;
+    font-size: 0.85em;
+    color: #b8b8b8;
+    margin-top: 20px;
+    font-style: italic;
 }
 
 /* Style pour le modal */
 .modal {
-    display: none; /* Masqué par défaut */
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -139,10 +159,10 @@ button:hover {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.6); /* Assombrir le fond */
+    background-color: rgba(0, 0, 0, 0.6);
     padding-top: 60px;
-    animation: fadeIn 0.3s ease-out; /* Animation d'apparition */
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+    animation: fadeIn 0.3s ease-out;
+    box-sizing: border-box;
 }
 
 .modal-content {
@@ -152,11 +172,11 @@ button:hover {
     border: 1px solid #ddd;
     width: 80%;
     max-width: 500px;
-    border-radius: 20px; /* Coins arrondis */
+    border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    animation: slideIn 0.3s ease-out; /* Animation de glissement */
-    background: linear-gradient(135deg, #f0f0f0, #ffffff); /* Fond en dégradé */
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+    animation: slideIn 0.3s ease-out;
+    background: linear-gradient(135deg, #f0f0f0, #ffffff);
+    box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -191,7 +211,7 @@ input[type="text"] {
     border-radius: 8px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: border-color 0.2s ease;
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+    box-sizing: border-box;
 }
 
 input[type="text"]:focus {
@@ -199,7 +219,6 @@ input[type="text"]:focus {
     outline: none;
 }
 
-/* Style des boutons de contrôle */
 button {
     padding: 12px 20px;
     background: linear-gradient(90deg, #ff7e5f, #feb47b);
@@ -210,11 +229,12 @@ button {
     font-weight: 500;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: inline-block; /* Assurez-vous que les boutons sont en ligne */
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+    display: inline-block;
+    box-sizing: border-box;
 }
 
 button:hover {
+    background: #ff7e5f;
     transform: scale(1.05);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
@@ -222,9 +242,9 @@ button:hover {
 .switch {
     position: relative;
     display: inline-block;
-    width: 100px; /* Augmenter la largeur pour le texte */
+    width: 100px;
     height: 34px;
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+    box-sizing: border-box;
 }
 
 .switch-input {
@@ -246,10 +266,10 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px; /* Ajouter de l'espace pour le texte */
+    padding: 0 10px;
     font-size: 14px;
     color: white;
-    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+    box-sizing: border-box;
 }
 
 .switch-label:before {
@@ -277,12 +297,12 @@ button:hover {
     border-radius: 50%;
 }
 
-.switch-input:checked + .switch-label:after {
-    transform: translateX(60px); /* Ajuster pour le déplacement du slider */
-}
-
 .switch-input:checked + .switch-label {
     background-color: #ff7e5f;
+}
+
+.switch-input:checked + .switch-label:after {
+    transform: translateX(60px);
 }
 
 .hidden {
